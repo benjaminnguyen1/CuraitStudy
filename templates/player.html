@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} Curait Study {% endblock %}
+{% block content %}
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/index.min.css')}}">
+
+</head>
+
+
+
+<header class="masthead text-center text-white">
+    <div class="masthead-content">
+        <div class="container">
+            <h2> Get ready to Study </h2>
+            <h3> Enjoy your curated playlist </h3>
+            <h6> *If you have time, please fill out the survey under the player* </h6>
+
+            <P>
+
+                <iframe src="{{ playlisturl }}" width="640" height="720" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+            </P>
+
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScfymfA8uSKeLu5mH1m2POvbfwHKVTEdeq84i_pNVDT9shPxA/viewform?embedded=true" width="640" height="1825" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+    </div>
+
+</header>
+
+<footer class="py-5 bg-black">
+    <div class="container">
+        <p class="m-0 text-center text-white small">Copyright &copy; Curait Study 2021</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+
+{% endblock %}
