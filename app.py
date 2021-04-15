@@ -4,14 +4,19 @@ from spotipy.oauth2 import SpotifyOAuth
 import time
 from flask_bootstrap import Bootstrap
 
+
 app = Flask(__name__)
 Bootstrap(app)
+
 
 app.secret_key = "CDajkh0877812896n"
 app.config['SESSION_COOKIE_NAME'] = 'Curait Cookie'
 TOKEN_INFO = "token_info"
 PLAYLIST_NAME = 'Study Playlist by Curait'
 PLAYLIST_DESCRIPTION = 'This is a study playlist curated through the use of Curait Study.'
+app.config["CACHE_TYPE"] = "null"
+
+
 
 @app.route('/')
 def home():
@@ -30,7 +35,38 @@ def redirectPage():
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
     session[TOKEN_INFO] = token_info
-    return redirect(url_for('tune', _external=True))
+    #return redirect(url_for('tune', _external=True))
+    return redirect(url_for('getUser', _external=True))
+
+@app.route('/getuser')
+def getUser():
+
+    try:
+        token_info = get_token()
+    except:
+        print("user not logged in")
+        return redirect(url_for("login", _external=False))
+
+    sp = spotipy.Spotify(auth=token_info['access_token'])
+    return sp.me()
+
+def get_token():
+    token_info = session.get(TOKEN_INFO, None)
+    if not token_info:
+        raise "exception"
+    now = int(time.time())
+    is_expired = token_info['expires_at'] - now < 60
+    if (is_expired):
+        sp_oauth = create_spotify_oauth()
+        token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
+    return token_info
+
+
+
+
+
+
+
 
 @app.route('/tune')
 def tune():
@@ -261,6 +297,7 @@ def create_spotify_oauth():
             client_secret="b0472eabc2704e799fc485691d82c50f",
             redirect_uri=url_for('redirectPage', _external=True),
             scope="playlist-modify-public, user-library-read")
+
 
 
 if __name__ == '__main__':
