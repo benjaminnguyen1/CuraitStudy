@@ -5,6 +5,7 @@ import time
 from flask_bootstrap import Bootstrap
 
 
+
 app = Flask(__name__)
 Bootstrap(app)
 
@@ -14,7 +15,7 @@ app.config['SESSION_COOKIE_NAME'] = 'Curait Cookie'
 TOKEN_INFO = "token_info"
 PLAYLIST_NAME = 'Study Playlist by Curait'
 PLAYLIST_DESCRIPTION = 'This is a study playlist curated through the use of Curait Study.'
-app.config["CACHE_TYPE"] = "null"
+
 
 
 
@@ -60,11 +61,6 @@ def get_token():
         sp_oauth = create_spotify_oauth()
         token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
     return token_info
-
-
-
-
-
 
 
 
@@ -296,7 +292,8 @@ def create_spotify_oauth():
             client_id="9a6b473b72af45fa90a60f1c6280f61e",
             client_secret="b0472eabc2704e799fc485691d82c50f",
             redirect_uri=url_for('redirectPage', _external=True),
-            scope="playlist-modify-public, user-library-read")
+            scope="playlist-modify-public, user-library-read",
+            cache_path='/trash')
 
 
 
