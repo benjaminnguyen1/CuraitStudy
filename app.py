@@ -36,8 +36,8 @@ def redirectPage():
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
     session[TOKEN_INFO] = token_info
-    #return redirect(url_for('tune', _external=True))
-    return redirect(url_for('getUser', _external=True))
+    return redirect(url_for('tune', _external=True))
+    #return redirect(url_for('getUser', _external=True))
 
 @app.route('/getuser')
 def getUser():
@@ -49,7 +49,8 @@ def getUser():
         return redirect(url_for("login", _external=False))
 
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    return sp.me()
+    result = sp.me()
+    return result['id']
 
 def get_token():
     token_info = session.get(TOKEN_INFO, None)
@@ -87,14 +88,14 @@ def playlist():
         return redirect(url_for("login", _external=False))
 
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    userjson = sp.current_user()
+    userjson = sp.me()
     userid = userjson['id']
     session['user_id'] = userid
 
 
     sp.user_playlist_create(user = userid, name = genre + ' ' + PLAYLIST_NAME, public = True, description = PLAYLIST_DESCRIPTION)
     return redirect(url_for('reccomendations'))
-    #return redirect(url_for('test'))
+
 
 def get_token():
     token_info = session.get(TOKEN_INFO, None)
@@ -107,20 +108,7 @@ def get_token():
         token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
     return token_info
 
-@app.route('/test')
-def test():
-    genre = session.get('selected_genre')
-    danceability = session.get('selected_danceability')
-    valence = session.get('selected_valence')
-    energy = session.get('selected_energy')
-    instrumentalness = session.get('selected_instrumentalness')
 
-    danceability = float(danceability)/10.0
-    valence = float(valence)/10.0
-    energy = float(energy)/10.0
-    instrumentalness = float(instrumentalness)/10.0
-    return render_template('testslider.html',content=danceability,content1 = valence, content2 = energy,
-    content3 = instrumentalness, genre=genre, )
 
 #get song reccomendations based on criteria and add them to page
 @app.route('/reccomendations', methods=['GET'])
@@ -245,9 +233,9 @@ def player():
         return redirect(url_for("login", _external=False))
 
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    playlisturl = session.get('playlist_url')
-    playlisturl = "https://open.spotify.com/embed" + playlisturl[24:]
-    return render_template('player.html',playlisturl=playlisturl)
+    playlisturl1 = session.get('playlist_url')
+    playlisturl = "https://open.spotify.com/embed" + playlisturl1[24:]
+    return render_template('player.html',playlisturl=playlisturl,playlisturl1=playlisturl1)
 
 def get_token():
     token_info = session.get(TOKEN_INFO, None)
@@ -259,31 +247,6 @@ def get_token():
         sp_oauth = create_spotify_oauth()
         token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
     return token_info
-
-#Practice code
-'''@app.route('/tune')
-def tune():
-    try:
-        token_info = get_token()
-    except:
-        print("user not logged in")
-        return redirect(url_for("login", _external=False))
-
-    sp = spotipy.Spotify(auth=token_info['access_token'])
-    user = sp.current_user()
-    userid = user['id']
-    return
-
-def get_token():
-    token_info = session.get(TOKEN_INFO, None)
-    if not token_info:
-        raise "exception"
-    now = int(time.time())
-    is_expired = token_info['expires_at'] - now < 60
-    if (is_expired):
-        sp_oauth = create_spotify_oauth()
-        token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
-    return token_info'''
 
 
 
