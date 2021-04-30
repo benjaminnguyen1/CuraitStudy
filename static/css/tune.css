@@ -41,7 +41,6 @@ h6 {
 header.masthead {
   position: relative;
   overflow: hidden;
-  margin-top: 10px;
   padding-bottom: 7rem;
   background: linear-gradient(0deg, #E0ECB0 0%, #B0ECBC 100%);
   background-repeat: no-repeat;
