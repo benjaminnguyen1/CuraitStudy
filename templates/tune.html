@@ -5,12 +5,16 @@
 {% block content %}
 <html lang="en">
 <head>
+<style>
+html, body, h1, h2, h3, h4, h5, h6, p {
+  font-family: courier;
+}
+</style>
     <!-- Custom fonts for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/index.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/tune.min.css')}}">
 
 </head>
 
@@ -43,21 +47,21 @@
 
         <div class="form-group" id="danceability">
             <h4> Adjust the DANCEABILITY of your playlist? </h4>
-            <h5> 0 Least DANCEABLE | 10 Most DANCEABLE </h5>
+            <h5> 0 Least DANCEABLE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 Most DANCEABLE </h5>
             <input name='danceability' type="range" value="5" min="0" max="10" oninput="this.nextElementSibling.value = this.value">
             <output>5</output>
         </div>
 
         <div class="form-group" id="instrumentalness">
             <h4> Adjust the INSTRUMENTALNESS of your playlist? </h4>
-            <h5> 0 Least INSTRUMENTAL | 10 Most INSTRUMENTAL </h5>
+            <h5> 0 Least INSTRUMENTAL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 Most INSTRUMENTAL </h5>
             <input name='instrumentalness' type="range" value="5" min="0" max="10" oninput="this.nextElementSibling.value = this.value">
             <output>5</output>
         </div>
 
         <div class="form-group" id="energy">
             <h4> How much ENERGY do you want the playlist to have? </h4>
-            <h5> 0 Lowest Energy | 10 Highest Energy </h5>
+            <h5> 0 Lowest Energy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 Highest Energy </h5>
             <input name='energy' type="range" value="5" min="0" max="10" oninput="this.nextElementSibling.value = this.value">
             <output>5</output>
         </div>
@@ -65,7 +69,7 @@
         <div class="form-group" id="valence">
             <h4> What MOOD do you want the playlist to be? </h4>
             <h6> Did you know... Most music is actually melancholy </h6>
-            <h5> 0 More Melancholy | 10 More Cheerful </h5>
+            <h5> 0 More Melancholy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 More Cheerful </h5>
             <input name='valence' type="range" value="5" min="0" max="10" oninput="this.nextElementSibling.value = this.value">
             <output>5</output>
         </div>

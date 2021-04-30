@@ -21,6 +21,8 @@ h6 {
 
 .btn-xl {
   text-transform: uppercase;
+  padding-top: 10px;
+  padding-bottom: 7rem;
   padding: 1.5rem 3rem;
   font-size: 0.9rem;
   font-weight: 700;
@@ -39,7 +41,7 @@ h6 {
 header.masthead {
   position: relative;
   overflow: hidden;
-  padding-top: calc(7rem + 72px);
+  margin-top: 10px;
   padding-bottom: 7rem;
   background: linear-gradient(0deg, #E0ECB0 0%, #B0ECBC 100%);
   background-repeat: no-repeat;
